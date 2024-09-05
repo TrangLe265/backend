@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> <head> 
+    <title>Server Programming</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+</head> 
+<body> 
+    <!-- '&gt;' is the HTML entity for the '>' greater than -->
+
+    <div th:if="${age} &gt; 17">
+        Welcome <span th:text = "${name}"> Guest</span> !
+    </div> 
+    <div th:if="${age} &lt; 17">
+        You are too young!
+    </div>
+
+</body> 
+ </html>
