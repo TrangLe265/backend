@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.domain.BookRepository;
+import fi.haagahelia.bookstore.domain.Category;
 import fi.haagahelia.bookstore.domain.CategoryRepository;
 
 @Controller
@@ -37,11 +38,11 @@ public class BookController {
         return "addbook"; 
     }
 
-    @RequestMapping(value={"/save"}, method = RequestMethod.POST) //this takes care of adding the book
+    @RequestMapping(value="/save", method = RequestMethod.POST) //this takes care of adding the book
     public String save(Book book){
         System.out.println("SAVING BOOK");
         repository.save(book); 
-        return "redirect:/booklist"; 
+        return "redirect:booklist"; 
     }
     // end here
 
@@ -53,12 +54,7 @@ public class BookController {
 
     @RequestMapping(value = "/edit/{isbn}", method = RequestMethod.GET)
     public String showEditBook(@PathVariable("isbn") Long isbn, Model model){
-        Optional<Book> book = repository.findById(isbn);
-        if (book.isPresent()){
-            model.addAttribute("book", book.get()); 
-        } else {
-            return "redirect:../booklist"; 
-        }
+        model.addAttribute("book", repository.findById(isbn));
         model.addAttribute("categories", catRepo.findAll()); 
         return "editbook"; 
     }
