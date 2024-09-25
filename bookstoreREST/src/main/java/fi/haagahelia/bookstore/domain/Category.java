@@ -2,8 +2,6 @@ package fi.haagahelia.bookstore.domain;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,8 +16,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long catId;
     private String catName;
-
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Book> books; 
 
@@ -28,7 +24,8 @@ public class Category {
 
     }
 
-    public Category(String catName) {    
+    public Category(String catName) {
+        
         this.catName = catName;
     }
     public List<Book> getBooks() {

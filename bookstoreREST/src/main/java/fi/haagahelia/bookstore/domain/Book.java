@@ -1,5 +1,7 @@
 package fi.haagahelia.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -8,14 +10,14 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Book {
    
-    @Id //aka primary key
-    private Long isbn;
     private String title; 
     private String author;
     private int publicationYear; 
-    
+    @Id //aka primary key
+    private Long isbn; 
     private float price ; 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Category category; 
 
     

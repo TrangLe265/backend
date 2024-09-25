@@ -1,45 +1,41 @@
 package fi.haagahelia.bookstore.web;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.domain.BookRepository;
+import fi.haagahelia.bookstore.domain.Category;
 import fi.haagahelia.bookstore.domain.CategoryRepository;
 
-@Controller
+@RestController
 public class BookController {
     
     //allows Spring to automatically inject an instance of BookRepository into the BookController.
     @Autowired 
     private BookRepository repository;
-    @Autowired
-    private CategoryRepository catRepo; 
+    /*@Autowired
+    private CategoryRepository catRepo; */
+
+    @GetMapping("/api/books")
+    public List<Book> getBooks() {
+        return repository.findAll();
+    }
     
-    @RequestMapping(value={"/","/booklist"})
+    /*@RequestMapping(value={"/","/booklist"})
     public String bookList(Model model){ //the attribute name here have to match the collection name in the html <tr th:each = "book : ${books}">
         model.addAttribute("books",repository.findAll()); 
+        //findAll = retrieves a list of all books from the database.
         return "booklist"; 
-    }
-
-    // RESTful service to get all books
-    @RequestMapping(value="/books", method = RequestMethod.GET)
-    public @ResponseBody List<Book> bookListRest() {
-        return (List<Book>) repository.findAll(); 
-    }
-    
-    //Restful service to get books by id
-    @RequestMapping(value="/book/{isbn}", method = RequestMethod.GET)
-    public @ResponseBody Optional<Book> findBookRest (@PathVariable("isbn") Long isbn){
-        return repository.findById(isbn); 
     }
 
     //adding and saving new book start here
@@ -69,5 +65,5 @@ public class BookController {
         model.addAttribute("book", repository.findById(isbn));
         model.addAttribute("categories", catRepo.findAll()); 
         return "editbook"; 
-    }
+    }*/
 }
