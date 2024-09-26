@@ -23,12 +23,12 @@ public class Category {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Book> books; 
 
-   
     public Category(){
 
     }
 
-    public Category(String catName) {    
+    public Category(String catName) {  
+        super();   
         this.catName = catName;
     }
     public List<Book> getBooks() {
@@ -39,6 +39,9 @@ public class Category {
         this.books = books;
     }
 
+    public void setCatId(Long catId){
+        this.catId = catId; 
+    }
 
     public Long getCatId() {
         return catId;
@@ -52,5 +55,9 @@ public class Category {
         this.catName = catName;
     }
 
+    @Override
+	public String toString() {
+		return "Category [catId=" + catId + ", catName=" + catName + "]";
+	}
 
 }

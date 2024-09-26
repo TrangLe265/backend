@@ -1,7 +1,9 @@
 package fi.haagahelia.bookstore.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
@@ -9,13 +11,14 @@ import jakarta.persistence.ManyToOne;
 public class Book {
    
     @Id //aka primary key
-    private Long isbn;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    private String isbn;
     private String title; 
     private String author;
     private int publicationYear; 
-    
     private float price ; 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Category category; 
 
     
@@ -27,7 +30,8 @@ public class Book {
     }
    
 
-    public Book(String title, String author, int publicationYear, Long isbn, float price,Category category) {
+    public Book(String title, String author, int publicationYear, String isbn, float price,Category category) {
+        super(); 
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
@@ -67,11 +71,11 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -81,5 +85,13 @@ public class Book {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    @Override
+	public String toString() {
+		if (this.category != null)
+			return "Book [isbn=" + isbn + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear + " category=" + this.getCategory() + "]";				
+		else
+			return "Book [isbn=" + isbn + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear +  "]";	
     }
 }

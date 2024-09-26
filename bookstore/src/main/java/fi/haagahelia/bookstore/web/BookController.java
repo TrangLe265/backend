@@ -37,9 +37,9 @@ public class BookController {
     }
     
     //Restful service to get books by id
-    @RequestMapping(value="/book/{isbn}", method = RequestMethod.GET)
-    public @ResponseBody Optional<Book> findBookRest (@PathVariable("isbn") Long isbn){
-        return repository.findById(isbn); 
+    @RequestMapping(value="/book/{id}", method = RequestMethod.GET)
+    public @ResponseBody Optional<Book> findBookRest (@PathVariable("id") Long Id){
+        return repository.findById(Id); 
     }
 
     //adding and saving new book start here
