@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Studentlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Edit book</h1>
+    <form th:object="${book}" th:action="@{../save}" method="post" >
+        <p>ISBN:<input type="hidden" th:field="*{isbn}" /> </p>
+        <p>Title: <input type="text" th:field="*{title}"/></p>
+        <p>Author: <input type="text" th:field = "*{author}"/> </p> 
+        <p>Price: <input type="number" th:field ="*{price}" /> </p>
+        <label for = "catList">Category</label>
+            <select id="catList" th:field="*{category}" class="form-control">
+                <option th:each = "category:${categories}" th:value = "${category.catId}" th:text = "${category.catName}">
+                </option>
+            </select>
+            
+        <p> <input type="submit" class="btn btn-success" value="Save"/> </p>
+
+    </form>
+    
+</body>
+
+</html>
