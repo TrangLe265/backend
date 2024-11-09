@@ -74,9 +74,15 @@ public class BookController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value="/delete/{id}", method= RequestMethod.GET)
-    public String deleteBook(@PathVariable("id") Long id, Model model){
-        repository.deleteById(id);
-        return "redirect:../booklist"; 
+    @RequestMapping(value="/delete/{title}", method= RequestMethod.GET)
+    public String deleteBook(@PathVariable("title") String title, Model model){
+        Book book = repository.findByTitle(title);
+        if (book != null) {
+            repository.delete(book);
+        } else {
+            model.addAttribute("error", "Book not found");
+        }
+        return "redirect:/booklist"; 
     }
+    
 }
